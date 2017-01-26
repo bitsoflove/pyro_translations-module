@@ -2,9 +2,6 @@
     "name": "bitsoflove/translations-module",
     "type": "streams-addon",
     "autoload": {
-        "classmap": [
-            "vendor/google/apiclient/src/Google"
-        ],
         "psr-4": {
             "Bitsoflove\\TranslationsModule\\": "src/"
         }

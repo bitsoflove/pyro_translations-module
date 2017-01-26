@@ -14,8 +14,8 @@ Generic streams translations module for PyroCMS 3.1 and up
 > Todo: example configurations
 
 ## Developing
-Instead of installing via composer, clone the repo into `core/bitsoflove/translations-module` 
-> (make sure you remove the `pyro_` prefix)
+Instead of installing via composer, create the folder `core/bitsoflove`, then clone this repo into `core/bitsoflove/translations-module` 
+**(make sure you remove the `pyro_` prefix)**
 
 - `cd core/bitsoflove/translations-module`
 - `cp .env.example.js .env.js`

@@ -4,7 +4,7 @@ const envConfig = fs.existsSync(path.join('.', '.env.js')) ? require('./.env.js'
 
 const publicPath = 'assets/bitsoflove/translations-module';
 
-const publicFullPath = '../../../../public/' + publicPath;
+const publicFullPath = '../../../public/' + publicPath;
 const nodeModules =  './node_modules';
 const bowerComponents = publicFullPath + '/bower_components';
 

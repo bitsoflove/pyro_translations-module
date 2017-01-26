@@ -1,0 +1,23 @@
+{
+  "name": "bitsoflove/translations",
+  "version": "0.0.0",
+  "authors": [
+    "Pepijn Olivier <olivier.pepijn@gmail.com"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "commercial",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {}
+}

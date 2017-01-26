@@ -1,0 +1,20 @@
+{
+    "name": "bitsoflove/translations-module",
+    "type": "streams-addon",
+    "autoload": {
+        "classmap": [
+            "vendor/google/apiclient/src/Google"
+        ],
+        "psr-4": {
+            "Bitsoflove\\TranslationsModule\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pepijn Olivier",
+            "email": "pepijn@bitsoflove.be",
+            "homepage": "https://github.com/pepijnolivier",
+            "role": "Owner"
+        }
+    ]
+}

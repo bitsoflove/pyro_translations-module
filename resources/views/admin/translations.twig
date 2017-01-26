@@ -1,0 +1,27 @@
+{% extends template.layout ?: "theme::layouts/default" %}
+
+{% block metadata %}
+    {% include "theme::partials/metadata" %}
+    <link rel="stylesheet" href="/assets/bitsoflove/translations-module/styles/vendor.css">
+    <link rel="stylesheet" href="/assets/bitsoflove/translations-module/styles/screen.css">
+    {% if env('WEBPACK_HOT') != true %}
+        <link rel="stylesheet" href="/assets/bitsoflove/translations-module/scripts/translations.css">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="app-container" id="app-container"></div>
+
+
+    <script src="/assets/bitsoflove/translations-module/scripts/vendor.js"></script>
+    {% if env('WEBPACK_HOT') != true %}
+        <script src="https://fb.me/react-15.1.0.min.js"></script>
+        <script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+        <script src="/assets/bitsoflove/translations-module/scripts/translations.js"></script>
+    {% else %}
+        <script src="http://{{ env('WEBPACK_HOST') }}:8090/translations.js"></script>
+    {% endif %}
+
+
+{% endblock %}

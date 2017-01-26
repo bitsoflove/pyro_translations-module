@@ -1,0 +1,14 @@
+.showHover {
+  display: none;
+
+  background-color: green;
+
+  &:hover {
+    display: inline-block;
+  }
+}
+
+
+.changed {
+  background-color: green;
+}

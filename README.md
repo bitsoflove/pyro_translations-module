@@ -1,4 +1,4 @@
-# pyro_translations-module
+# PyroCMS stream-based translation module
 Generic streams translations module for PyroCMS 3.1 and up
 (using [react-handsontable](https://github.com/handsontable/react-handsontable))
 
@@ -15,7 +15,7 @@ First, you'll have to publish the config file:
 By default, after installing this module, every admin will be able to translate all streams.
 To allow only a subset of that list, update the published config file accordingly:
 
-```
+```php
 <?php return [
 
     'middleware' => [

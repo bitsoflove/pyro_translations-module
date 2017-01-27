@@ -56,7 +56,7 @@ To allow only a subset of that list, update the published config file accordingl
 ];
 ```
 ## Developing
-1. Instead of using `composer require manually add the following entry to the composer 'require' list: `"bitsoflove/translations-module": "dev-master"`
+1. Instead of using `composer require`, manually add the following entry to the composer 'require' list: `"bitsoflove/translations-module": "dev-master"`
 2. Add this repository to the composer repositories list (to ensure you'll fetch the repo)
 ```
     "repositories": [

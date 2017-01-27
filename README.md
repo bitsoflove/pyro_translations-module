@@ -9,15 +9,64 @@ Generic streams translations module for PyroCMS 3.1 and up
 
 ## Configuration
 
-> Todo: figure out how to publish module config
+First, you'll have to publish the config file:
+- `php artisan addon:publish bitsoflove.module.translations`
 
-> Todo: example configurations
+By default, after installing this module, every admin will be able to translate all streams.
+To allow only a subset of that list, update the published config file accordingly:
 
+```
+<?php return [
+
+    'middleware' => [
+        // list any middlewares you want to use here
+        // you can use middleware to manipulate this config on the fly
+
+        //TranslationsModuleMiddleware::class,
+    ],
+
+    'streams' => [
+
+        /**
+         * Possible values:
+         *
+         * 'all' or an array of EntryModel classes
+         */
+        'models' => [
+            [
+                'model' => YourModel::class,
+                'fields' => ['title'], // just allow translation of the title field
+                'default' => true,
+            ],
+            [
+                'model' => YourSecondModel::class,
+                'fields' => [], // all fields
+                'default' => false,
+            ],
+        ],
+
+        'locales' => [
+            'default' => config('streams::locales.default'),
+
+            'supported' => array_keys(
+                config('streams::locales.supported')
+            ),
+        ],
+    ]
+];
+```
 ## Developing
-1. Don't install the package via composer, 
-2. create the folder `core/bitsoflove`, then clone this repo into `core/bitsoflove/translations-module` 
-
-(make sure you remove the `pyro_` prefix from the default folder name)
+1. Instead of using 'composer require', manually add the following entry to the composer 'require' list: `"bitsoflove/translations-module": "dev-master"`
+2. Add this repository to the composer repositories list (to ensure you'll fetch the repo)
+```
+    "repositories": [
+        {
+            "url": "https://github.com/bitsoflove/pyro_translations-module.git",
+            "type": "git"
+        }
+    ],
+```
+3. `composer install`
 
 Then:
 - `php artisan module:install translations`

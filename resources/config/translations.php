@@ -1,41 +1,34 @@
 <?php return [
 
+    'middleware' => [
+        // list any middlewares you want to use here
+        // you can use middleware to manipulate this config on the fly
+
+        //TranslationsModuleMiddleware::class,
+    ],
+
     'streams' => [
 
         /**
          * Possible values:
          *
-         * 'none', 'all' or an array of EntryModel classes
+         * 'all' or an array of EntryModel classes
          */
+        'models' => 'all',
+
+        /*
         'models' => [
-            /*
-            [
-                'model' => \Puratos\SolutionsModule\Solution\SolutionModel::class,
-                //'fields' => null,
-                'default' => true,
-            ],
-            */
-            [
-                'model' => \Puratos\FiltersModule\IngredientType\IngredientTypeModel::class,
-                'fields' => ['title'],
-                'default' => true,
+                'model' => YourEntryModel::class,
+                'fields' => ['title'],                     // only allow 'title' field
+                'default' => true,                         // auto select
             ],
             [
-                'model' => \Puratos\FiltersModule\Ingredient\IngredientModel::class,
-                'fields' => [],
-                'default' => false,
-            ],
-            [
-                'model' => \Puratos\FiltersModule\IngredientFilter\IngredientFilterModel::class,
-                'fields' => null,
-                'default' => false,
-            ],
-            [
-                'model' => \Puratos\FiltersModule\IngredientFilterOption\IngredientFilterOptionModel::class,
-                'fields' => [],
-                'default' => false,
-            ],
+                'model' => YourSecondEntryModel::class,
+                'fields' => [],                           // all translatable fields
+                'default' => false,                       // do not auto select
+            ]
         ],
+        */
 
         'locales' => [
             'default' => config('streams::locales.default'),

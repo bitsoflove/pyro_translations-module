@@ -23,14 +23,19 @@ class FilterService
 
     private function getStreams($modelsCfg)
     {
-        $modelsCfg = collect($modelsCfg);
 
-        //$translatableStreams = StreamModel::all()->where('translatable', 1);
         $translatableStreamsQuery = StreamModel::where('translatable', 1);
-        if (!empty($modelsCfg->count())) {
-            $streamIds = $this->getStreamIdsFromModels($modelsCfg);
-            $translatableStreamsQuery->whereIn('id', $streamIds);
+        if ($modelsCfg !== 'all') {
+
+            $modelsCfg = collect($modelsCfg);
+            if ( ! empty($modelsCfg->count())) {
+                $streamIds = $this->getStreamIdsFromModels($modelsCfg);
+                $translatableStreamsQuery->whereIn('id', $streamIds);
+            }
+
         }
+
+
         $translatableStreams = $translatableStreamsQuery->get();
 
         $mapped = $translatableStreams->map(function (StreamModel $stream) use ($modelsCfg) {
@@ -49,12 +54,12 @@ class FilterService
                 ->get();
 
             return [
-                'id'          => $stream->id,
-                'namespace'   => $stream->namespace,
-                'slug'        => $stream->slug,
-                'identifier'  => $stream->namespace . '.' . $stream->slug,
+                'id'         => $stream->id,
+                'namespace'  => $stream->namespace,
+                'slug'       => $stream->slug,
+                'identifier' => $stream->namespace . '.' . $stream->slug,
 
-                'default'     => (bool) isset($modelCfg['default']) ? $modelCfg['default'] : false,
+                'default' => (bool)isset($modelCfg['default']) ? $modelCfg['default'] : false,
 
                 'assignments' => $assignments->map(function (AssignmentModel $assignment) {
                     return [
@@ -93,6 +98,25 @@ class FilterService
         return $stream->getEntryModel();
     }
 
+    private function getModelCfg(EntryModel $model, $modelsCfg)
+    {
+        try {
+            foreach ($modelsCfg as $modelCfg) {
+                $modelCandidateClass = $modelCfg['model'];
+                $modelCandidate      = app($modelCandidateClass);
+
+                $modelClass = get_class($model);
+                if ($modelCandidate instanceof $modelClass) {
+                    return $modelCfg;
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error($e);
+        }
+
+        return $model; // probably using option 'all'
+    }
+
     private function getAllowedFields(EntryModel $model, $modelCfg)
     {
         //2. Get all fields via assignments of this model
@@ -102,8 +126,8 @@ class FilterService
 
         $allowedFields = isset($modelCfg['fields']) ? $modelCfg['fields'] : null;
 
-        if (!is_null($allowedFields)) {
-            $allowedFields = (array) $allowedFields;
+        if ( ! is_null($allowedFields)) {
+            $allowedFields = (array)$allowedFields;
             $fields        = $fields->filter(function (FieldModel $field) use ($allowedFields) {
                 $slug = $field->getSlug();
                 return in_array($slug, $allowedFields);
@@ -111,20 +135,5 @@ class FilterService
         }
 
         return $fields->keyBy('id');
-    }
-
-    private function getModelCfg(EntryModel $model, $modelsCfg)
-    {
-        foreach ($modelsCfg as $modelCfg) {
-            $modelCandidateClass = $modelCfg['model'];
-            $modelCandidate      = app($modelCandidateClass);
-
-            $modelClass = get_class($model);
-            if ($modelCandidate instanceof $modelClass) {
-                return $modelCfg;
-            }
-        }
-
-        return false;
     }
 }

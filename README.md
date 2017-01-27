@@ -7,6 +7,10 @@ Generic streams translations module for PyroCMS 3.1 and up
 - `composer require bitsoflove/pyro_translations-module`
 - `php artisan module:install translations`
 
+You might still have to run the build script
+
+- `cd core/bitsoflove/translations-module && npm install && npm run dist`
+
 ## Configuration
 
 First, you'll have to publish the config file:

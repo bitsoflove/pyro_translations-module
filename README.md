@@ -79,3 +79,11 @@ Then:
 - `npm install`
 - `npm run dev`
 ```
+
+
+## Roadmap
+
+- Support Middleware
+- Support file-based translations
+    - Extra config setting: (either cache 1 array of all the database translations, or cache them separately)
+    - overwrite `Lang::get()` and `trans() `

@@ -70,6 +70,7 @@ To allow only a subset of that list, update the published config file accordingl
         }
     ],
 ```
+
 Then:
 - `composer install`
 - `php artisan module:install translations`
@@ -78,8 +79,6 @@ Then:
 - Change the [proxy](https://github.com/bitsoflove/pyro_translations-module/blob/master/.env.example.js#L4) property in `.env.js` to the host of your local pyro application
 - `npm install`
 - `npm run dev`
-```
-
 
 ## Roadmap
 

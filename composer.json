@@ -13,5 +13,8 @@
             "homepage": "https://github.com/pepijnolivier",
             "role": "Owner"
         }
-    ]
+    ],
+    "require": {
+        "venturecraft/revisionable": "^1.28"
+    }
 }

@@ -86,3 +86,7 @@ Then:
 - Support file-based translations
     - Extra config setting: (either cache 1 array of all the database translations, or cache them separately)
     - overwrite `Lang::get()` and `trans() `
+    
+    ---
+
+<a href="https://rollbar.com"><img src="https://rollbar.com/assets/badges/rollbar-partner-badge-light.png" alt="Rollbar Error Tracking" /></a>

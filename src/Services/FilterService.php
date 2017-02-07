@@ -10,7 +10,6 @@ class FilterService
 {
     public function getFilters()
     {
-
         $modelsCfg  = config('bitsoflove.module.translations::translations.streams.models');
         $localesCfg = config('bitsoflove.module.translations::translations.streams.locales');
 

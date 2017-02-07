@@ -7,7 +7,6 @@ class TranslationService
 {
     public function save(array $data)
     {
-
         $success = [];
         $fail    = [];
         foreach ($data as $key => $item) {

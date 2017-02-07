@@ -10,9 +10,4 @@ return [
         'verb' => 'POST',
         'uses' => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\ApiController@save',
     ],
-
-    'admin/translations/'                       => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@index',
-    'admin/translations/translations'           => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@index',
-    'admin/translations/translations/create'    => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@create',
-    'admin/translations/translations/edit/{id}' => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@edit',
 ];

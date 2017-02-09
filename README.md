@@ -24,7 +24,7 @@ To allow only a subset of that list, update the published config file accordingl
 
     'middleware' => [
         // list any middlewares you want to use here
-        // you can use middleware to manipulate this config on the fly
+        // you can use middleware to manipulate this config before the page gets rendered
 
         //TranslationsModuleMiddleware::class,
     ],
@@ -86,18 +86,17 @@ Then:
 **0.0.5**
 
 - Supports middleware
-- Supports file translations (overwrites `Lang::get()` and `trans() using extended `Translator)
-
+- Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator)
 **0.0.6**
 
-- refactor after code review
+- code review & refactor
 - performance updates
-- auto save
-- ui updates
+- add autosave option
+- ui updates (loader, general styling)
 
 **0.0.7 till 0.1.0**
 
-- ensure the dist assets are both in the repo and up to date
+- ensure all dist assets are both in the repo and up to date
 - google auto translate
 - view entry (streams)
 - tests

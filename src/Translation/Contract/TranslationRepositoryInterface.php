@@ -1,5 +1,4 @@
-<?php
-namespace Bitsoflove\TranslationsModule\Translation\Contract;
+<?php namespace Bitsoflove\TranslationsModule\Translation\Contract;
 
 use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 

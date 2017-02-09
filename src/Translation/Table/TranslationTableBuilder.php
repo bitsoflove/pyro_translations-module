@@ -1,5 +1,4 @@
-<?php
-namespace Bitsoflove\TranslationsModule\Translation\Table;
+<?php namespace Bitsoflove\TranslationsModule\Translation\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
@@ -33,7 +32,7 @@ class TranslationTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $buttons = [
-        'edit',
+        'edit'
     ];
 
     /**
@@ -42,7 +41,7 @@ class TranslationTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $actions = [
-        'delete',
+        'delete'
     ];
 
     /**

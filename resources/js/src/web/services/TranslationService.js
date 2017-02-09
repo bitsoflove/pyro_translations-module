@@ -15,17 +15,18 @@ class TranslationService  {
 
 
     getSheetData(filters, type, callback) {
-        var endpoint = '/admin/translations/api/sheet';
+        var endpoint = '/admin/translations/api/sheet/' + type;
         var qs = [
             'type=' + type,
             'base-language=' + filters.baseLanguage,
             'locales=' + filters.languages.join(',')
         ];
 
-        if(filters.streams) {
+
+        if(type === 'streams') {
             qs.push('streams=' + filters.streams.join(','));
         }
-        if(filters.modules) {
+        if(type === 'modules') {
             qs.push('modules=' + filters.modules.join(','));
         }
 
@@ -38,7 +39,40 @@ class TranslationService  {
         }.bind(this));
     }
 
-    save(changes, callback) {
+    saveModuleTranslations(changes, callback) {
+
+        var data = [];
+
+        // let's just make it easy for the backend, shall we
+        for(var key in changes) {
+            let keySplit = key.split('.');
+            const locale = keySplit.pop();
+            const identifier = keySplit.join('.');
+            const newValue = changes[key].newValue;
+
+            data.push({
+                identifier: identifier,
+                locale: locale,
+                value: newValue
+            });
+        }
+
+        var request = {data: data};
+        var endpoint = '/admin/translations/api/save/modules';
+
+        console.info(endpoint, request);
+
+        // for some reason, POST not working properly with axios on my machine
+        // jQuery will do the trick
+        jQuery.post(endpoint, request, function(response) {
+            debugger;
+            callback(response);
+        }).error(function(error) {
+            debugger;
+        });
+    }
+
+    saveStreamTranslations(changes, callback) {
         var request = {};
 
         //2. build proper request that's easy to parse by the backend
@@ -63,7 +97,9 @@ class TranslationService  {
             };
         }
 
-        var endpoint = '/admin/translations/api/save';
+        var endpoint = '/admin/translations/api/save/streams';
+
+        debugger;
 
         // for some reason, POST not working properly with axios on my machine
         // jQuery will do the trick

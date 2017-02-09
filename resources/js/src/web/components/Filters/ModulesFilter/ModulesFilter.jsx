@@ -7,13 +7,13 @@ class ModulesFilter extends React.Component  {
     getOptions() {
         const props = this.props;
         const modules = props.modules;
-        var options = modules.map(function(item) {
+
+        var options = (modules && modules.length) ? modules.map(function(item) {
             return {
                 id: item.id,
                 text: item.name
             }
-        });
-        debugger;
+        }) : [];
         return options;
     }
 

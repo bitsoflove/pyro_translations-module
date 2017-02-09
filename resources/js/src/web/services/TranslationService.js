@@ -14,15 +14,22 @@ class TranslationService  {
     };
 
 
-    getSheetData(filters, callback) {
+    getSheetData(filters, type, callback) {
         var endpoint = '/admin/translations/api/sheet';
         var qs = [
-            'streams=' + filters.streams.join(','),
+            'type=' + type,
             'base-language=' + filters.baseLanguage,
             'locales=' + filters.languages.join(',')
-        ].join('&');
+        ];
 
-        endpoint += ('?' + qs);
+        if(filters.streams) {
+            qs.push('streams=' + filters.streams.join(','));
+        }
+        if(filters.modules) {
+            qs.push('modules=' + filters.modules.join(','));
+        }
+
+        endpoint += ('?' + qs.join('&'));
         console.info(endpoint);
         axios.get(endpoint, filters).then(function(response) {
             callback(response.data);
@@ -30,7 +37,7 @@ class TranslationService  {
             this.handleError(error);
         }.bind(this));
     }
-    
+
     save(changes, callback) {
         var request = {};
 
@@ -79,6 +86,7 @@ class TranslationService  {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
         }
+
         console.log(error.config);
     }
 }

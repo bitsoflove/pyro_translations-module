@@ -39,9 +39,17 @@ class ApiController extends AdminController
         return response()->json($data, 200, [], JSON_PRETTY_PRINT);
     }
 
-    public function sheet()
+    public function moduleSheet() {
+        $modules      = explode(',', \Input::get('modules'));
+        $baseLanguage = \Input::get('base-language');
+        $locales      = explode(',', \Input::get('locales'));
+
+        $data = $this->moduleSheetService->getData($modules, $baseLanguage, $locales);
+        return response()->json($data, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function streamSheet()
     {
-        $type         = \Input::get('type'); // modules | streams
         $streams      = explode(',', \Input::get('streams'));
         $baseLanguage = \Input::get('base-language');
         $locales      = explode(',', \Input::get('locales'));
@@ -50,10 +58,17 @@ class ApiController extends AdminController
         return response()->json($data, 200, [], JSON_PRETTY_PRINT);
     }
 
-    public function save()
+    public function saveStreamTranslations()
     {
         $data   = $_POST;
         $result = $this->streamTranslationsRepository->save($data);
+        return response()->json($result, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function saveModuleTranslations()
+    {
+        $data   = $_POST['data'];
+        $result = $this->moduleTranslationsRepository->save($data);
         return response()->json($result, 200, [], JSON_PRETTY_PRINT);
     }
 

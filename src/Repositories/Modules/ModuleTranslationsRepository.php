@@ -1,11 +1,7 @@
 <?php
 namespace Bitsoflove\TranslationsModule\Repositories\Modules;
 
-use Anomaly\Streams\Platform\Asset\Asset;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Bitsoflove\TranslationsModule\Repositories\Modules\Interfaces\TranslationRepositoryInterface;
-use Bitsoflove\TranslationsModule\Translation\Form\TranslationFormBuilder;
-use Bitsoflove\TranslationsModule\Translation\Table\TranslationTableBuilder;
 
 class ModuleTranslationsRepository implements TranslationRepositoryInterface
 {
@@ -29,5 +25,19 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
     private function mergeFileTranslationsWithDatabaseTranslations($fileTranslations, $databaseTranslations) {
         $merged = array_merge($fileTranslations, $databaseTranslations);
         return $merged;
+    }
+
+    public function save($data) {
+        // always save to the database
+        // just doing this one by one. Yes, we should probably batch this
+
+        foreach($data as $entry)  {
+            $entry = (array) $entry;
+            $key = $entry['identifier'];
+            $locale = $entry['locale'];
+            $value = $entry['value'];
+
+            $this->dbTranslationsRepo->updateOrCreateTranslation($key, $locale, $value);
+        }
     }
 }

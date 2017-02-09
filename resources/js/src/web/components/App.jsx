@@ -1,5 +1,6 @@
 import React from "react";
-import PyroSheet from "./PyroSheet";
+import StreamSheet from "./PyroSheet/StreamSheet.jsx";
+import ModuleSheet from "./PyroSheet/ModuleSheet.jsx";
 import {BaseLanguageFilter, LanguagesFilter, StreamsFilter, ModulesFilter} from "./Filters";
 import _ from "lodash";
 import TranslationService from "./../services/TranslationService";
@@ -17,7 +18,7 @@ class App extends React.Component {
                 streams: [],
                 languages: {}
             },
-            translationType: 'streams',
+            translationType: window.translationsModule.type || 'modules',
             filters: {
                 baseLanguage: null,
                 languages: [],
@@ -82,11 +83,13 @@ class App extends React.Component {
         var filters = state.filters;
         filters[type] = value;
 
+        var validFilters = this.hasValidFilters(filters, this.state.translationType);
 
-        if (this.hasValidFilters(filters)) {
+        if (validFilters) {
             state.valid = true;
             this.updateSheet(filters, this.state.translationType);
         } else {
+            console.log('invalid filters', filters);
             state.valid = false;
         }
 
@@ -94,15 +97,25 @@ class App extends React.Component {
         this.setState(state);
     }
 
-    hasValidFilters(filters) {
-        for (var key in filters) {
-            var filter = filters[key];
-            if (_.isEmpty(filter)) {
-                return false;
-            }
+
+    // filters are valid when:
+    //      translate from filled
+    //      translate to filled
+    //      either modules or streams filled (based on translationType)
+    hasValidFilters(filters, translationType) {
+
+        var isValid = !_.isEmpty(filters.languages) && !_.isEmpty(filters.baseLanguage);
+
+        switch(translationType) {
+            case 'modules':
+                isValid &= !_.isEmpty(filters.modules);
+                break;
+            case 'streams':
+                isValid &= !_.isEmpty(filters.streams);
+                break;
         }
 
-        return true;
+        return isValid;
     }
 
     updateSheet(filters, translationType) {
@@ -213,7 +226,15 @@ class App extends React.Component {
                                     <span>Loading</span>
 
                                  ) : (
-                                    <PyroSheet filters={this.state.filters} data={this.state.sheetData}/>
+                                     <div>
+                                         {this.state.translationType === 'streams' ? (
+                                             <StreamSheet filters={this.state.filters} data={this.state.sheetData}/>
+                                         ) : undefined}
+
+                                         {this.state.translationType === 'modules' ? (
+                                             <ModuleSheet filters={this.state.filters} data={this.state.sheetData}/>
+                                         ) : undefined}
+                                     </div>
                                  )
                             : (
                                 <span>

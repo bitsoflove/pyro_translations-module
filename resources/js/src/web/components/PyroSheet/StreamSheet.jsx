@@ -4,10 +4,9 @@ import HotTable from 'react-handsontable';
 
 import TranslationService from './../../services/TranslationService';
 
-//import styles from './PyroSheet.scss';
 import classnames from 'classnames';
 
-class Bitsoflove extends React.Component  {
+class StreamSheet extends React.Component  {
 
     constructor(props) {
         super(props);
@@ -135,7 +134,7 @@ class Bitsoflove extends React.Component  {
         });
 
 
-        TranslationService.save(changes, function(response) {
+        TranslationService.saveStreamTranslations(changes, function(response) {
             this.onSaved(response);
 
             this.setState({
@@ -196,4 +195,4 @@ class Bitsoflove extends React.Component  {
     }
 }
 
-export default Bitsoflove;
+export default StreamSheet;

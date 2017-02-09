@@ -22,4 +22,25 @@ class TranslationRepository extends EntryRepository implements TranslationReposi
     {
         $this->model = $model;
     }
+
+
+    public function updateOrCreate($key, $locale, $value) {
+        try {
+
+            // this should happen via the pyro translations class
+            // because pyro will clear cache when fetching
+
+            $translationModel = $this->model->firstOrCreate(['key' => $key]);
+            $translationTranslationModel = $translationModel->translateOrNew($locale);
+
+            $translationTranslationModel->value = $value;
+            $translationTranslationModel->save();
+
+            return true;
+        } catch(\Exception $e) {
+            Log::error($e, compact('key', 'locale', 'value'));
+        }
+
+        return false;
+    }
 }

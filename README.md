@@ -87,6 +87,7 @@ Then:
 
 - Supports middleware
 - Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator)
+
 **0.0.6**
 
 - code review & refactor

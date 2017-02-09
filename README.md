@@ -82,11 +82,21 @@ Then:
 
 ## Roadmap
 
-- Support Middleware
-- Support file-based translations
-    - Extra config setting: (either cache 1 array of all the database translations, or cache them separately)
-    - overwrite `Lang::get()` and `trans() `
-    
-    ---
 
-<a href="https://rollbar.com"><img src="https://rollbar.com/assets/badges/rollbar-partner-badge-light.png" alt="Rollbar Error Tracking" /></a>
+**0.0.5**
+
+- Supports middleware
+- Supports file translations (overwrites `Lang::get()` and `trans() using extended `Translator)
+
+**0.0.6**
+
+- refactor after code review
+- performance updates
+- auto save
+- ui updates
+
+**0.0.7 till 0.1.0**
+
+- google auto translate
+- view entry (streams)
+- tests

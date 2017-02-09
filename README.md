@@ -97,6 +97,7 @@ Then:
 
 **0.0.7 till 0.1.0**
 
+- ensure the dist script is always committed
 - google auto translate
 - view entry (streams)
 - tests

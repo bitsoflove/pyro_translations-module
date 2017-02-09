@@ -160,6 +160,9 @@ class Sheet extends React.Component  {
                           afterChange={this.afterChange.bind(this)}
                 />
 
+                sheet data:
+                <pre>{JSON.stringify(data)}</pre>
+
             </div>
         );
     }

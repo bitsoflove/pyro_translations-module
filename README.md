@@ -86,10 +86,9 @@ Then:
 **0.0.5**
 
 - Supports middleware
-- Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator)
+- Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator`)
 
 **0.0.6**
-
 - code review & refactor
 - performance updates
 - add autosave option

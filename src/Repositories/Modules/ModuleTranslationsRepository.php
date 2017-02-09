@@ -1,9 +1,9 @@
 <?php
-namespace Bitsoflove\TranslationsModule\Repositories;
+namespace Bitsoflove\TranslationsModule\Repositories\Modules;
 
 use Anomaly\Streams\Platform\Asset\Asset;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Bitsoflove\TranslationsModule\Repositories\Interfaces\TranslationRepositoryInterface;
+use Bitsoflove\TranslationsModule\Repositories\Modules\Interfaces\TranslationRepositoryInterface;
 use Bitsoflove\TranslationsModule\Translation\Form\TranslationFormBuilder;
 use Bitsoflove\TranslationsModule\Translation\Table\TranslationTableBuilder;
 
@@ -27,6 +27,7 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
     }
 
     private function mergeFileTranslationsWithDatabaseTranslations($fileTranslations, $databaseTranslations) {
-        throw new \Exception("Unimplemented: mergeFileTranslationsWithDatabaseTranslations");
+        $merged = array_merge($fileTranslations, $databaseTranslations);
+        return $merged;
     }
 }

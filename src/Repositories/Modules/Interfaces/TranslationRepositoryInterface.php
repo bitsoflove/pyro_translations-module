@@ -1,5 +1,5 @@
 <?php
-namespace Bitsoflove\TranslationsModule\Repositories\Interfaces;
+namespace Bitsoflove\TranslationsModule\Repositories\Modules\Interfaces;
 
 interface TranslationRepositoryInterface
 {

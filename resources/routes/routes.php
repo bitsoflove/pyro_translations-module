@@ -8,7 +8,7 @@ return [
         $url = "/admin/translations/streams";
         return redirect($url);
     },
-    'admin/translations/streams'           => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@streams',
-    'admin/translations/modules'           => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\TranslationsController@modules',
+    'admin/translations/streams'           => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\FrontController@streams',
+    'admin/translations/modules/{namespace}'           => 'Bitsoflove\TranslationsModule\Http\Controller\Admin\FrontController@modules',
 
 ];

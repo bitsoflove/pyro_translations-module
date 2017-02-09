@@ -1,5 +1,4 @@
-<?php
-namespace Bitsoflove\TranslationsModule\Translation\Form;
+<?php namespace Bitsoflove\TranslationsModule\Translation\Form;
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 

@@ -1,9 +1,9 @@
 <?php
-namespace Bitsoflove\TranslationsModule\Repositories;
+namespace Bitsoflove\TranslationsModule\Repositories\Modules;
 
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Bitsoflove\TranslationsModule\Repositories\Interfaces\TranslationRepositoryInterface;
+use Bitsoflove\TranslationsModule\Repositories\Modules\Interfaces\TranslationRepositoryInterface;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Translation\Translator;
 
@@ -11,7 +11,7 @@ class FileTranslationRepository implements TranslationRepositoryInterface
 {
     public function getAddonTranslations($addonNamespace, $locale, array $parameters=[]) {
 
-        //@todo: can this be done more efficiently ?
+        //can this be done more efficiently ?
         $addonCollection = app(AddonCollection::class);
         $addon = $addonCollection->where('namespace', $addonNamespace)->first();
 
@@ -19,7 +19,15 @@ class FileTranslationRepository implements TranslationRepositoryInterface
         $namespace = $addon->getNamespace();
         $dir = $langPath . "/$locale";
 
+        // ensure all keys known
+        // can this be done more efficiently ?
+        $fileTranslationKeys = $this->getFileTranslationKeys($addon);
         $dotNotations = [];
+        foreach($fileTranslationKeys as $key) {
+            $dotNotations[$key] = null;
+        }
+
+        // fill translations
         $this->appendFileTranslationsInDotNotationFromFolder($namespace, $dir, [], $dotNotations);
         return $dotNotations;
     }

@@ -100,3 +100,7 @@ Then:
 - google auto translate
 - view entry (streams)
 - tests
+
+** Under consideration**
+
+- revisions

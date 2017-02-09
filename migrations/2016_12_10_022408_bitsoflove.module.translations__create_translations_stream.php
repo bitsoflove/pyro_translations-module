@@ -5,20 +5,25 @@ use Anomaly\Streams\Platform\Database\Migration\Migration;
 class BitsofloveModuleTranslationsCreateTranslationsStream extends Migration
 {
 
-    /**
-     * The stream definition.
-     *
-     * @var array
-     */
     protected $stream = [
         'slug' => 'translations',
+        'title_column' => 'key',
+
+        'translatable' => true,
+        'searchable'   => true,
+        'trashable'    => true,
+        'sortable'     => true,
     ];
 
-    /**
-     * The stream assignments.
-     *
-     * @var array
-     */
-    protected $assignments = [];
+
+    protected $assignments = [
+        'key' =>[
+            'required' => true,
+        ],
+        'value' =>[
+            'required' => false,
+            'translatable' => true,
+        ],
+    ];
 
 }

@@ -101,6 +101,6 @@ Then:
 - view entry (streams)
 - tests
 
-** Under consideration**
+**Under consideration**
 
 - revisions

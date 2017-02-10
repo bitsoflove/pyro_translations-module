@@ -9,6 +9,10 @@ use Illuminate\Translation\Translator;
 
 class FileTranslationRepository implements TranslationRepositoryInterface
 {
+
+    /**
+     * This method is mainly here to support the admin view
+     */
     public function getAddonTranslations($addonNamespace, $locale, array $parameters=[]) {
 
         //can this be done more efficiently ?

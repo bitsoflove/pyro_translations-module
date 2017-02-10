@@ -152,7 +152,8 @@ class ModuleSheet extends React.Component  {
     }
 
     onSaved(response) {
-        if(response && response.fail && response.fail.length === 0) {
+        debugger;
+        if(response && (!response.fail || response.fail.length === 0)) {
             alert('saved');
         }
     }

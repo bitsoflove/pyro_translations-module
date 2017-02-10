@@ -2,8 +2,6 @@
 
 use Illuminate\Translation\TranslationServiceProvider;
 use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
-use Illuminate\Translation\Translator as LaravelTranslator;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class TranslatorServiceProvider extends TranslationServiceProvider
 {
@@ -26,6 +24,5 @@ class TranslatorServiceProvider extends TranslationServiceProvider
             $trans->setFallback($app['config']['app.fallback_locale']);
             return $trans;
         });
-
     }
 }

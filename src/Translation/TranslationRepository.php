@@ -2,6 +2,7 @@
 
 use Bitsoflove\TranslationsModule\Translation\Contract\TranslationRepositoryInterface;
 use Anomaly\Streams\Platform\Entry\EntryRepository;
+use Illuminate\Support\Facades\Log;
 
 class TranslationRepository extends EntryRepository implements TranslationRepositoryInterface
 {

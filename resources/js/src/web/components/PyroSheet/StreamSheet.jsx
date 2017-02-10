@@ -1,10 +1,7 @@
 import React from 'react';
 import Sheet from './Sheet';
-import HotTable from 'react-handsontable';
 
 import TranslationService from './../../services/TranslationService';
-
-import classnames from 'classnames';
 
 class StreamSheet extends React.Component  {
 
@@ -141,9 +138,6 @@ class StreamSheet extends React.Component  {
                 saving: false
             });
         }.bind(this));
-
-
-
     }
 
     onSaved(response) {
@@ -151,8 +145,6 @@ class StreamSheet extends React.Component  {
             alert('saved');
         }
     }
-
-
 
     componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render

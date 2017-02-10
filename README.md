@@ -96,6 +96,7 @@ Then:
 
 **0.0.7 till 0.1.0**
 
+- support laravel `fallback` and `replace` options
 - ensure all dist assets are both in the repo and up to date
 - google auto translate
 - view entry (streams)

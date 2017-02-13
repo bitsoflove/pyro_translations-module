@@ -157,9 +157,8 @@ class Sheet extends React.Component  {
                           beforeChange={this.beforeChange.bind(this)}
                           afterChange={this.afterChange.bind(this)}
                 />
-
-                sheet data:
-                <pre>{JSON.stringify(data)}</pre>
+                
+                <pre className="hide">{JSON.stringify(data)}</pre>
 
             </div>
         );

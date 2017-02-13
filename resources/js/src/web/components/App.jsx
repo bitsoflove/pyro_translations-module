@@ -247,7 +247,7 @@ class App extends React.Component {
                 </div>
 
 
-                <div className="row">
+                <div className="row hide">
                     <div className="col-xs-6">
                         <h5>Filters</h5>
                         <pre>

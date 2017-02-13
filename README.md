@@ -90,10 +90,10 @@ Then:
 ## Roadmap
 
 
-**0.0.5**
+~~**0.0.5**~~
 
-- Supports middleware
-- Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator`)
+- ~~Supports middleware~~
+- ~~Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator`)~~
 
 **0.0.6**
 - code review & refactor

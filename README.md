@@ -1,6 +1,8 @@
-# PyroCMS stream-based translation module
+# PyroCMS stream-based translation module (alpha)
 Generic streams translations module for PyroCMS 3.1 and up
 (using [react-handsontable](https://github.com/handsontable/react-handsontable))
+
+> **Heads up!**: Currently still in Alpha state. It works, but there are no automated tests yet, and the package is still subject to code review & refactor.
 
 ## Installation
 

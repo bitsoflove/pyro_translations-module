@@ -10,6 +10,14 @@ class BitsofloveModuleTranslationsCreateTranslationsFields extends Migration
      *
      * @var array
      */
-    protected $fields = [];
+    protected $fields = [
+        'key' => [
+            'type' => 'anomaly.field_type.text',
+        ],
+        'value' => [
+            'type' => 'anomaly.field_type.text',
+        ],
+
+    ];
 
 }

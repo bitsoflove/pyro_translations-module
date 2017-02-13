@@ -1,8 +1,7 @@
-<?php
-namespace Bitsoflove\TranslationsModule\Translation;
+<?php namespace Bitsoflove\TranslationsModule\Translation;
 
-use Anomaly\Streams\Platform\Model\Translations\TranslationsTranslationsEntryModel;
 use Bitsoflove\TranslationsModule\Translation\Contract\TranslationInterface;
+use Anomaly\Streams\Platform\Model\Translations\TranslationsTranslationsEntryModel;
 
 class TranslationModel extends TranslationsTranslationsEntryModel implements TranslationInterface
 {

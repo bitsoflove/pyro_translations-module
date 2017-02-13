@@ -14,15 +14,23 @@ class TranslationService  {
     };
 
 
-    getSheetData(filters, callback) {
-        var endpoint = '/admin/translations/api/sheet';
+    getSheetData(filters, type, callback) {
+        var endpoint = '/admin/translations/api/sheet/' + type;
         var qs = [
-            'streams=' + filters.streams.join(','),
+            'type=' + type,
             'base-language=' + filters.baseLanguage,
             'locales=' + filters.languages.join(',')
-        ].join('&');
+        ];
 
-        endpoint += ('?' + qs);
+
+        if(type === 'streams') {
+            qs.push('streams=' + filters.streams.join(','));
+        }
+        if(type === 'modules') {
+            qs.push('modules=' + filters.modules.join(','));
+        }
+
+        endpoint += ('?' + qs.join('&'));
         console.info(endpoint);
         axios.get(endpoint, filters).then(function(response) {
             callback(response.data);
@@ -30,8 +38,41 @@ class TranslationService  {
             this.handleError(error);
         }.bind(this));
     }
-    
-    save(changes, callback) {
+
+    saveModuleTranslations(changes, callback) {
+
+        var data = [];
+
+        // let's just make it easy for the backend, shall we
+        for(var key in changes) {
+            let keySplit = key.split('.');
+            const locale = keySplit.pop();
+            const identifier = keySplit.join('.');
+            const newValue = changes[key].newValue;
+
+            data.push({
+                identifier: identifier,
+                locale: locale,
+                value: newValue
+            });
+        }
+
+        var request = {data: data};
+        var endpoint = '/admin/translations/api/save/modules';
+
+        console.info(endpoint, request);
+
+        // for some reason, POST not working properly with axios on my machine
+        // jQuery will do the trick
+        jQuery.post(endpoint, request, function(response) {
+            debugger;
+            callback(response);
+        }).error(function(error) {
+            debugger;
+        });
+    }
+
+    saveStreamTranslations(changes, callback) {
         var request = {};
 
         //2. build proper request that's easy to parse by the backend
@@ -56,7 +97,9 @@ class TranslationService  {
             };
         }
 
-        var endpoint = '/admin/translations/api/save';
+        var endpoint = '/admin/translations/api/save/streams';
+
+        debugger;
 
         // for some reason, POST not working properly with axios on my machine
         // jQuery will do the trick
@@ -79,6 +122,7 @@ class TranslationService  {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
         }
+
         console.log(error.config);
     }
 }

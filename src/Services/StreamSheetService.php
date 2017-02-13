@@ -6,7 +6,7 @@ use Anomaly\Streams\Platform\Entry\EntryModel;
 use Anomaly\Streams\Platform\Stream\StreamModel;
 use Illuminate\Database\Eloquent\Collection;
 
-class SheetService
+class StreamSheetService
 {
     public function getData($streamIds, $baseLocale, $locales)
     {

@@ -1,13 +1,12 @@
 <?php
-namespace Bitsoflove\TranslationsModule\Services;
+namespace Bitsoflove\TranslationsModule\Repositories\Streams;
 
 use Anomaly\Streams\Platform\Stream\StreamModel;
 
-class TranslationService
+class StreamTranslationsRepository
 {
     public function save(array $data)
     {
-
         $success = [];
         $fail    = [];
         foreach ($data as $key => $item) {

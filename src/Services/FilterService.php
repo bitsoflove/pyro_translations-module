@@ -10,40 +10,64 @@ class FilterService
 {
     public function getFilters()
     {
-
-        $modelsCfg  = config('bitsoflove.module.translations::translations.streams.models');
-        $localesCfg = config('bitsoflove.module.translations::translations.streams.locales');
+        $allowedStreams  = config('bitsoflove.module.translations::translations.streams.allowed');
+        $allowedModules  = config('bitsoflove.module.translations::translations.modules.allowed');
+        $localesCfg = config('bitsoflove.module.translations::translations.locales');
 
         $data = [
-            'streams'   => $this->getStreams($modelsCfg),
+            'modules'   => $this->getModules($allowedModules),
+            'streams'   => $this->getStreams($allowedStreams),
             'languages' => $localesCfg,
         ];
         return $data;
     }
 
-    private function getStreams($modelsCfg)
-    {
-
-        $translatableStreamsQuery = StreamModel::where('translatable', 1);
-        if ($modelsCfg !== 'all') {
-
-            $modelsCfg = collect($modelsCfg);
-            if ( ! empty($modelsCfg->count())) {
-                $streamIds = $this->getStreamIdsFromModels($modelsCfg);
-                $translatableStreamsQuery->whereIn('id', $streamIds);
-            }
-
+    private function getModules($allowedModules) {
+        if($allowedModules === '*') {
+            throw new \Exception("Modules wildcard yet to be implemented, feel free to PR");
         }
 
+        $modules = [];
+        foreach($allowedModules as $moduleCfg) {
+            $moduleClassNamespace = $moduleCfg['module'];
+            $module = app($moduleClassNamespace);
+
+            $result = [
+                'id' => $module->getId(),
+                'namespace' => $module->getNamespace(),
+                'name' => trans($module->getName()),
+                'slug' => $module->getSlug(),
+                'identifier' => $module->getId(),
+
+                'default' =>  (bool) isset($moduleCfg['default']) ? $moduleCfg['default'] : false,
+            ];
+
+            $modules[] = $result;
+        }
+
+        return $modules;
+    }
+
+    private function getStreams($allowedStreams)
+    {
+        $translatableStreamsQuery = StreamModel::where('translatable', 1);
+        if ($allowedStreams !== 'all') {
+
+            $allowedStreamsCfg = collect($allowedStreams);
+            if ( ! empty($allowedStreamsCfg->count())) {
+                $streamIds = $this->getStreamIdsFromModels($allowedStreamsCfg);
+                $translatableStreamsQuery->whereIn('id', $streamIds);
+            }
+        }
 
         $translatableStreams = $translatableStreamsQuery->get();
 
-        $mapped = $translatableStreams->map(function (StreamModel $stream) use ($modelsCfg) {
+        $mapped = $translatableStreams->map(function (StreamModel $stream) use ($allowedStreamsCfg) {
 
             $model = $this->getEntryModelFromStream($stream);
 
             //1. first find the model defined in $modelsCfg that is an instance of $model
-            $modelCfg      = $this->getModelCfg($model, $modelsCfg);
+            $modelCfg      = $this->getModelCfg($model, $allowedStreamsCfg);
             $allowedFields = $this->getAllowedFields($model, $modelCfg);
 
             $assignments = $stream->assignments()
@@ -73,10 +97,10 @@ class FilterService
         return $mapped->values()->toArray();
     }
 
-    private function getStreamIdsFromModels($modelsCfg)
+    private function getStreamIdsFromModels($allowedStreamsCfg)
     {
         $streamIds = [];
-        foreach ($modelsCfg as $cfg) {
+        foreach ($allowedStreamsCfg as $cfg) {
 
             $model    = $cfg['model'];
             $instance = app($model);

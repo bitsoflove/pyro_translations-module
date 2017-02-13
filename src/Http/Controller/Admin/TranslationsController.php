@@ -1,10 +1,8 @@
-<?php
-namespace Bitsoflove\TranslationsModule\Http\Controller\Admin;
+<?php namespace Bitsoflove\TranslationsModule\Http\Controller\Admin;
 
-use Anomaly\Streams\Platform\Asset\Asset;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Bitsoflove\TranslationsModule\Translation\Form\TranslationFormBuilder;
 use Bitsoflove\TranslationsModule\Translation\Table\TranslationTableBuilder;
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 class TranslationsController extends AdminController
 {
@@ -15,15 +13,9 @@ class TranslationsController extends AdminController
      * @param TranslationTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(TranslationTableBuilder $table)
     {
-        $asset = app(Asset::class);
-
-        // append select2 css
-        //$asset->add('theme.css', 'module::css/select2.css', ['parse']);
-
-        //$asset->add('theme.js', 'module::js/index.js', ['parse']);
-        return view('module::admin/translations');
+        return $table->render();
     }
 
     /**

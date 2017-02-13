@@ -7,13 +7,11 @@ class Sheet extends React.Component  {
         super(props);
 
         this.changes = {};
-        debugger; // wrs beter om changes mee te geven via props, dan moet dit niet ontdubbeld worden
+        console.warn('wrs beter om changes mee te geven via props, dan moet dit niet ontdubbeld worden');
     }
 
     cells(columnCount, row, col, prop) {
         var cellProperties = {};
-
-        console.log('cells');
 
         var isChanged = !!this.changes["" + row + '-' + col];
         if(isChanged) {
@@ -159,6 +157,9 @@ class Sheet extends React.Component  {
                           beforeChange={this.beforeChange.bind(this)}
                           afterChange={this.afterChange.bind(this)}
                 />
+
+                sheet data:
+                <pre>{JSON.stringify(data)}</pre>
 
             </div>
         );

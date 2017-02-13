@@ -11,7 +11,7 @@ Generic streams translations module for PyroCMS 3.1 and up
 - navigate to `config/app.php`. Replace the default TranslationServiceProvider provider with the one from this package.
 
     > ~~`Illuminate\Translation\TranslationServiceProvider::class,`~~
-    > `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class`,
+    > `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class,`
 
 You might still have to run the build script
 

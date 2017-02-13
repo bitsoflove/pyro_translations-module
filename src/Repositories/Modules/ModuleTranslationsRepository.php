@@ -54,11 +54,19 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
         $fileTranslations = $this->fileTranslationsRepo->getAddonTranslations($addonNamespace, $locale, $parameters);
         $databaseTranslations = $this->dbTranslationsRepo->getAddonTranslations($addonNamespace, $locale, $parameters);
 
+        //    3b. else return assoc array (merged)
+        if(!is_array($fileTranslations)) {
+            $fileTranslations = [];
+        }
+        if(!is_array($databaseTranslations)) {
+            $databaseTranslations = [];
+        }
+
         $merged = $this->mergeFileTranslationsWithDatabaseTranslations($fileTranslations, $databaseTranslations);
         return $merged;
     }
 
-    private function mergeFileTranslationsWithDatabaseTranslations($fileTranslations, $databaseTranslations) {
+    private function mergeFileTranslationsWithDatabaseTranslations(array $fileTranslations, array $databaseTranslations) {
         $merged = array_merge($fileTranslations, $databaseTranslations);
         return $merged;
     }

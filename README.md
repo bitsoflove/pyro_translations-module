@@ -6,13 +6,13 @@ Generic streams translations module for PyroCMS 3.1 and up
 > **Heads up!**: Currently still in Alpha state. It works, but there are no automated tests yet, and the package is still subject to code review & refactor.
 
 ## Installation
-
 - `composer require bitsoflove/translations-module`
 - `php artisan module:install translations`
-- navigate to the `config/app.php` providers array. Add the `TranslationServiceProvider` from this package right after Laravel's default `TranslationServiceProvider`.
+- navigate to the `config/app.php` providers array. Replace Laravel's default `TranslationServiceProvider` with the `TranslatorServiceProvider` from this package.
 
-    > `Illuminate\Translation\TranslationServiceProvider::class,`
-    > `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class,`
+
+    ~~`Illuminate\Translation\TranslationServiceProvider::class,`~~
+    `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class,`
 
 You might still have to run the build script
 

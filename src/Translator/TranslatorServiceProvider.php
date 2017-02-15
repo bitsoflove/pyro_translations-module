@@ -1,9 +1,10 @@
-<?php namespace Bitsoflove\TranslationsModule\Translator;
+<?php
+namespace Bitsoflove\TranslationsModule\Translator;
 
 use Bitsoflove\TranslationsModule\TranslationsModule;
+use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Translation\TranslationServiceProvider;
-use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
 
 class TranslatorServiceProvider extends TranslationServiceProvider
 {
@@ -13,11 +14,14 @@ class TranslatorServiceProvider extends TranslationServiceProvider
 
             $module = app(TranslationsModule::class);
 
+            if (!env('INSTALLED')) {
+                return parent::boot();
+            }
 
-            if(!$module->isInstalled()) {
+            if (!$module->isInstalled()) {
                 //Log::warning("Refusing to boot BoL translator - module is not installed");
                 //die('TranslatorServiceProvider@boot');
-                //return false;
+                //return parent::boot();
             }
 
             $this->app->offsetUnset('translation.loader');
@@ -37,7 +41,7 @@ class TranslatorServiceProvider extends TranslationServiceProvider
                 $trans->setFallback($app['config']['app.fallback_locale']);
                 return $trans;
             });
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             Log::critical($e);
         }
     }

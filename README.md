@@ -90,18 +90,19 @@ Then:
 ## Roadmap
 
 
-~~**0.0.5**~~
+~~**0.0.1**~~
 
+- ~~Reusable proof of concept~~
 - ~~Supports middleware~~
 - ~~Supports file translations (overwrites `Lang::get()` and `trans()` using extended `Translator`)~~
 
-**0.0.6**
+**0.0.2**
 - code review & refactor
 - performance updates
 - add autosave option
 - ui updates (loader, general styling)
 
-**0.0.7 till 0.1.0**
+**0.0.3 till 0.1.0**
 
 - support laravel `fallback` and `replace` options
 - ensure all dist assets are both in the repo and up to date

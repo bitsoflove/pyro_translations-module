@@ -245,25 +245,6 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
-
-
-                <div className="row hide">
-                    <div className="col-xs-6">
-                        <h5>Filters</h5>
-                        <pre>
-                            {JSON.stringify(this.state.filters, null, 2)}
-                        </pre>
-                    </div>
-
-                    <div className="col-xs-12">
-                        <h5>Sheet data</h5>
-                        <pre>
-                            {JSON.stringify(this.state.sheetData, null, 2)}
-                        </pre>
-                    </div>
-                </div>
-                {/**/}
-
             </div>
     );
     }

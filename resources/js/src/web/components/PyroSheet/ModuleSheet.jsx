@@ -23,9 +23,6 @@ class ModuleSheet extends React.Component  {
         this.handleChange = this.handleChange.bind(this);
     }
     setSheet(data) {
-
-    debugger;
-
         var sheet =  {
             initialized: true,
             data: this.getData(data),

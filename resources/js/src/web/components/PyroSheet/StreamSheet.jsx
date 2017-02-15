@@ -170,7 +170,7 @@ class StreamSheet extends React.Component  {
         return (
             <div>
 
-                {sheet ? (
+                {sheet && sheet.data && sheet.data.length ? (
                     <Sheet data={sheet.data}
                            colHeaders={sheet.colHeaders}
                            afterChange={this.afterChange.bind(this)}

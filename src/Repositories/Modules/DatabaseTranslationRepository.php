@@ -23,7 +23,7 @@ class DatabaseTranslationRepository implements TranslationRepositoryInterface
     }
 
     public function get($key, array $replace = [], $locale = null, $fallback = true, $fileMatches=null) {
-        $results = TranslationModel::where('key', 'LIKE', $key)->get()->keyBy('key');
+        $results = TranslationModel::where('key', 'LIKE', "$key%")->get()->keyBy('key');
         $mapped = $this->mapTranslationModelsToKeyValues($results, $locale, $replace);
         return $mapped;
     }
@@ -33,7 +33,6 @@ class DatabaseTranslationRepository implements TranslationRepositoryInterface
      * This method is mainly here to support the admin view
      */
     public function getAddonTranslations($addonNamespace, $locale, array $parameters=[]) {
-
         try {
             $key = "$addonNamespace::%";
             $results = TranslationModel::where('key', 'LIKE', $key)->get()->keyBy('key');

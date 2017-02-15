@@ -12,8 +12,12 @@ class TranslatorServiceProvider extends TranslationServiceProvider
         try {
 
             $module = app(TranslationsModule::class);
+
+
             if(!$module->isInstalled()) {
-                return false;
+                //Log::warning("Refusing to boot BoL translator - module is not installed");
+                //die('TranslatorServiceProvider@boot');
+                //return false;
             }
 
             $this->app->offsetUnset('translation.loader');

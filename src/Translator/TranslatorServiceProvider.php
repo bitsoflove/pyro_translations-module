@@ -1,6 +1,7 @@
 <?php
 namespace Bitsoflove\TranslationsModule\Translator;
 
+use Anomaly\Streams\Platform\Model\Translations\TranslationsTranslationsEntryModel;
 use Bitsoflove\TranslationsModule\TranslationsModule;
 use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
 use Illuminate\Support\Facades\Log;
@@ -11,17 +12,9 @@ class TranslatorServiceProvider extends TranslationServiceProvider
     public function boot()
     {
         try {
-
-            $module = app(TranslationsModule::class);
-
-            if (!env('INSTALLED')) {
-                return parent::boot();
-            }
-
-            if (!$module->isInstalled()) {
-                //Log::warning("Refusing to boot BoL translator - module is not installed");
-                //die('TranslatorServiceProvider@boot');
-                //return parent::boot();
+            if(!$this->shouldInitializeCustomTranslator()) {
+                parent::register();
+                return;
             }
 
             $this->app->offsetUnset('translation.loader');
@@ -44,5 +37,37 @@ class TranslatorServiceProvider extends TranslationServiceProvider
         } catch (\Exception $e) {
             Log::critical($e);
         }
+    }
+
+    public function register() {
+        if($this->shouldInitializeCustomTranslator()) {
+            return;
+        }
+
+        parent::register();
+    }
+
+
+    protected function shouldInitializeCustomTranslator() {
+        $module = app(TranslationsModule::class);
+
+        if (!env('INSTALLED')) {
+            return false;
+        }
+
+        // for some reason, module is never returning true here...
+        //if (!$module->isInstalled()) {
+            //return false;
+        //}
+
+        // translations streams compiled ?
+        $class = TranslationsTranslationsEntryModel::class;
+
+        if(!class_exists($class)) {
+            return false;
+        }
+
+        die('yep');
+
     }
 }

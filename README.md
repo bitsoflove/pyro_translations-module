@@ -1,6 +1,5 @@
 # PyroCMS stream-based translation module (alpha)
-Generic streams translations module for PyroCMS 3.1 and up
-(using [react-handsontable](https://github.com/handsontable/react-handsontable))
+Generic translations module for PyroCMS 3.1 and up. This package handles streams translations as well as module translations.
 
 
 > **Heads up!**: Currently still in Alpha state. It works, but there are no automated tests yet, and the package is still subject to code review & refactor.
@@ -10,9 +9,9 @@ Generic streams translations module for PyroCMS 3.1 and up
 - `php artisan module:install translations`
 - navigate to the `config/app.php` providers array. Replace Laravel's default `TranslationServiceProvider` with the `TranslatorServiceProvider` from this package.
 
+    `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class,`
+    ~~`Illuminate\Translation\TranslationServiceProvider::class,`~~
 
-    ~~`Illuminate\Translation\TranslationServiceProvider::class,`~~
-    `\Bitsoflove\TranslationsModule\Translator\TranslatorServiceProvider::class,`
 
 You might still have to run the build script
 
@@ -23,7 +22,7 @@ You might still have to run the build script
 First, you'll have to publish the config file:
 - `php artisan addon:publish bitsoflove.module.translations`
 
-By default, after installing this module, every admin will be able to translate all streams.
+By default, after installing this module, every admin will be able to translate all streams and all modules.
 To allow only a subset of that list, update the published config file accordingly:
 
 ```php
@@ -34,6 +33,26 @@ To allow only a subset of that list, update the published config file accordingl
         // you can use middleware to manipulate this config before the page gets rendered
 
         //TranslationsModuleMiddleware::class,
+    ],
+    
+    'modules' => [
+
+        /**
+         * Possible values:
+         *
+         * 'all' or an array of Anomaly\Streams\Platform\Addon\Module classes
+         */
+
+        'allowed' => [
+            [
+                'module' => \Anomaly\PagesModule\PagesModule::class,
+                'default' => true,
+            ],
+            [
+                'module' => \Anomaly\PostsModule\PostsModule::class,
+                'default' => false,
+            ],
+        ]
     ],
 
     'streams' => [

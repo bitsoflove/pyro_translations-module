@@ -3,19 +3,14 @@ namespace Bitsoflove\TranslationsModule\Translator;
 
 use Bitsoflove\TranslationsModule\TranslationsModule;
 use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Translation\TranslationServiceProvider;
 
 class TranslatorServiceProvider extends TranslationServiceProvider
 {
-    use DispatchesJobs;
-
     public function boot()
     {
         try {
-            $module = app(TranslationsModule::class);
-
             // remove any existing translators
             $this->app->offsetUnset('translation.loader');
             $this->app->offsetUnset('translator');

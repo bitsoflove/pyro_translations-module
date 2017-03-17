@@ -1,7 +1,6 @@
 <?php
 namespace Bitsoflove\TranslationsModule\Translator;
 
-use Bitsoflove\TranslationsModule\TranslationsModule;
 use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Translation\TranslationServiceProvider;

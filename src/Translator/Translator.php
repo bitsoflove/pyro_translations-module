@@ -20,6 +20,10 @@ class Translator extends LaravelTranslator
     private function initializeDependencies()
     {
         try {
+            if(! class_exists('\Anomaly\Streams\Platform\Model\Translations\TranslationsTranslationsEntryModel')) {
+                throw new \Exception("TranslationsTranslationsEntryModel has not been compiled yet. Execute php artisan streams:compile");
+            }
+
             $this->moduleTranslationsRepo = app(ModuleTranslationsRepository::class);
         } catch(\Exception $e) {
             // this might happen when streams:compile hasn't been executed yet
@@ -30,6 +34,12 @@ class Translator extends LaravelTranslator
     public function get($key, array $replace = [], $locale = null, $fallback = true)
     {
         try {
+
+            // fallback to default behaviour if the translations model hasn't been compiled yet
+            if(! class_exists('\Anomaly\Streams\Platform\Model\Translations\TranslationsTranslationsEntryModel')) {
+                return parent::get($key, $replace, $locale, $fallback);
+            }
+
             if (empty($locale)) {
                 $locale = app()->getLocale();
             }

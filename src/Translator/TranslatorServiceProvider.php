@@ -1,44 +1,43 @@
-<?php namespace Bitsoflove\TranslationsModule\Translator;
+<?php
+namespace Bitsoflove\TranslationsModule\Translator;
 
 use Bitsoflove\TranslationsModule\TranslationsModule;
+use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Translation\TranslationServiceProvider;
-use Bitsoflove\TranslationsModule\Translator\Translator as BolTranslator;
 
 class TranslatorServiceProvider extends TranslationServiceProvider
 {
+    use DispatchesJobs;
+
     public function boot()
     {
         try {
-
             $module = app(TranslationsModule::class);
 
-
-            if(!$module->isInstalled()) {
-                //Log::warning("Refusing to boot BoL translator - module is not installed");
-                //die('TranslatorServiceProvider@boot');
-                //return false;
-            }
-
+            // remove any existing translators
             $this->app->offsetUnset('translation.loader');
             $this->app->offsetUnset('translator');
 
+            // register our own translator
             $this->registerLoader();
-
             $this->app->singleton('translator', function ($app) {
                 $loader = $app['translation.loader'];
-
-                // When registering the translator component, we'll need to set the default
-                // locale as well as the fallback locale. So, we'll grab the application
-                // configuration so we can easily get both of these values from there.
                 $locale = $app['config']['app.locale'];
-
-                $trans = new BolTranslator($loader, $locale);
+                $trans  = new BolTranslator($loader, $locale);
                 $trans->setFallback($app['config']['app.fallback_locale']);
+
+                // Stream-based translations must be configured afterwards
+                // See https://github.com/anomalylabs/streams-platform/blob/1.2/src/Application/Command/ConfigureTranslator.php
+                $streamsPath = base_path('vendor/anomaly/streams-platform/resources/lang');
+                $trans->addNamespace('streams', $streamsPath);
+
                 return $trans;
             });
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             Log::critical($e);
         }
     }
+
 }

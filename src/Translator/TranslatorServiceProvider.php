@@ -17,21 +17,34 @@ class TranslatorServiceProvider extends TranslationServiceProvider
             // register our own translator
             $this->registerLoader();
             $this->app->singleton('translator', function ($app) {
-                $loader = $app['translation.loader'];
+                $loader = app()->make('translation.loader');//$app['translation.loader'];
                 $locale = $app['config']['app.locale'];
                 $trans  = new BolTranslator($loader, $locale);
                 $trans->setFallback($app['config']['app.fallback_locale']);
 
-                // Stream-based translations must be configured afterwards
-                // See https://github.com/anomalylabs/streams-platform/blob/1.2/src/Application/Command/ConfigureTranslator.php
-                $streamsPath = base_path('vendor/anomaly/streams-platform/resources/lang');
-                $trans->addNamespace('streams', $streamsPath);
-
                 return $trans;
             });
+
+
+            $this->configureStreamBasedTranslations();
+
         } catch (\Exception $e) {
             Log::critical($e);
         }
+    }
+
+    /**
+     * Stream-based translations must be configured afterwards
+     * See https://github.com/anomalylabs/streams-platform/blob/1.2/src/Application/Command/ConfigureTranslator.php
+     */
+    private function configureStreamBasedTranslations()
+    {
+        $name = str_slug(config('app.name'));
+        $publishedPath = resource_path("$name/streams/lang");
+        $originalPath = base_path('vendor/anomaly/streams-platform/resources/lang');
+
+        $path = file_exists($publishedPath) ? $publishedPath : $originalPath;
+        $this->app->make('translator')->addNamespace('streams', $path);
     }
 
 }

@@ -141,7 +141,7 @@ class Sheet extends React.Component  {
         let columnCount = colHeaders.length;
 
         return (
-            <div>
+            <div className="table-responsive" style={{minHeight: "800px"}}>
                 <HotTable root="hot"
                           contextMenu={false}
                           rowHeaders={true}

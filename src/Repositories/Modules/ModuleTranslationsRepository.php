@@ -20,9 +20,13 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
      */
     public function get($key, array $replace = [], $locale = null, $fallback = true, $fileMatches=null) {
 
+        // let's not be silly
+        if(!is_string($key)) {
+            return null;
+        }
+
         // 1. we already got our file matches so just query the database
         $dbMatches = $this->dbTranslationsRepo->get($key, $replace, $locale, $fallback);
-
 
         // 2. can we find an exact match on the database level? return exact match
         if(isset($dbMatches[$key])) {
@@ -140,6 +144,7 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
     {
         $sanitized = [];
         foreach($dbMatches as $dbKey => $value) {
+            $value = (string) $value; // handle NULL
             $sanitizedKey = str_replace_first($key, '' , $dbKey);
             $sanitizedKey = ltrim($sanitizedKey, '.'); // remove leading dots
             array_set($sanitized, $sanitizedKey, $value);

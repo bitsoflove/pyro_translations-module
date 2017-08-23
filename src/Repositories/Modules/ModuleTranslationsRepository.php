@@ -144,6 +144,11 @@ class ModuleTranslationsRepository implements TranslationRepositoryInterface
     {
         $sanitized = [];
         foreach($dbMatches as $dbKey => $value) {
+            // handle case: ErrorException: strpos(): Empty needle
+            if(empty($key) || empty($dbKey)) {
+                continue;
+            }
+
             $value = (string) $value; // handle NULL
             $sanitizedKey = str_replace_first($key, '' , $dbKey);
             $sanitizedKey = ltrim($sanitizedKey, '.'); // remove leading dots
